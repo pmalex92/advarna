@@ -1,0 +1,30 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Navbar from '@/sections/Navbar';
+import Footer from '@/sections/Footer.astro';
+import ProductDetail from '@/components/ProductDetail';
+import { productsData } from '@/data/products';
+
+export function getStaticPaths() {
+  return Object.keys(productsData).map((productId) => ({ params: { productId } }));
+}
+
+const { productId } = Astro.params;
+const product = productId ? productsData[productId] : null;
+
+if (!product) {
+  return Astro.redirect('/404');
+}
+
+const description = product.description;
+---
+<BaseLayout
+  title={`${product.name} | ADVARNA`}
+  description={description}
+  canonical={`/product/${product.id}`}
+  ogImage={product.image}
+>
+  <Navbar client:load />
+  <ProductDetail client:load productId={product.id} />
+  <Footer />
+</BaseLayout>

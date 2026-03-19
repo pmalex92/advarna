@@ -1,0 +1,34 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Navbar from '@/sections/Navbar';
+import Hero from '@/sections/Hero';
+import About from '@/sections/About';
+import Products from '@/sections/Products';
+import Advantages from '@/sections/Advantages';
+import Stats from '@/sections/Stats';
+import Contact from '@/sections/Contact';
+import Footer from '@/sections/Footer.astro';
+---
+<BaseLayout
+  title="ADVARNA | Wireless Structural Monitoring Solutions"
+  description="ADVARNA develops and manufactures wireless measurement solutions for structural and geotechnical monitoring in civil engineering and industry."
+  canonical="/"
+>
+  <div id="page-shell" class="min-h-screen bg-white opacity-0 transition-opacity duration-500">
+    <Navbar client:load />
+    <main>
+      <Hero client:load />
+      <About client:visible />
+      <Products client:visible />
+      <Advantages client:visible />
+      <Stats client:visible />
+      <Contact client:visible />
+    </main>
+    <Footer />
+  </div>
+  <script>
+    window.requestAnimationFrame(() => {
+      document.getElementById('page-shell')?.classList.replace('opacity-0', 'opacity-100');
+    });
+  </script>
+</BaseLayout>
